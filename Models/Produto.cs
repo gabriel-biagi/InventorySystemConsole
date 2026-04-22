@@ -8,11 +8,11 @@ namespace InventorySystem.Models
         public int Codigo { get; private set; }
         public TipoUnidade TipoUnidade { get; private set; }
 
-        public Produto(string nome, TipoUnidade tipounidade, int codigo)
+        public Produto(string nome, int codigo, TipoUnidade tipounidade)
         {
             Nome = nome;
-            TipoUnidade = tipounidade;
             Codigo = codigo;
+            TipoUnidade = tipounidade;
         }
     }
 }

@@ -9,6 +9,13 @@ namespace InventorySystem.Models
         public decimal Quantidade { get; private set; }
 
 
+        public Estoque(Produto produto, Locacao locacao)
+        {
+            Produto = produto;
+            Locacao = locacao;
+            Quantidade = 0;
+        }
+
         public Estoque(Produto produto, Locacao locacao, decimal quantidade)
         {
             Produto = produto;
@@ -16,7 +23,23 @@ namespace InventorySystem.Models
             Quantidade = quantidade;
         }
 
-
+        public override string ToString()
+        {
+            return
+                "========================================\n" +
+                "              PRODUTO                   \n" +
+                "========================================\n" +
+                $"Nome       : {Produto.Nome}\n" +
+                $"Código     : {Produto.Codigo}\n" +
+                $"Quantidade : {Quantidade}\n" +
+                "----------------------------------------\n" +
+                "              LOCALIZAÇÃO               \n" +
+                "----------------------------------------\n" +
+                $"Coluna     : {Locacao.Coluna}\n" +
+                $"Prateleira : {Locacao.Prateleira}\n" +
+                $"Posição    : {Locacao.Item}\n" +
+                "========================================";
+        }
 
         public string AdicionaQuantidadeEstoque(decimal quantidade)
         {
@@ -29,7 +52,7 @@ namespace InventorySystem.Models
             {
                 if (!_verificaNumeroInt(quantidade))
                 {
-                    return "A Quantidade informada não é válida para o tipo de unidade."
+                    return "A Quantidade informada não é válida para o tipo de unidade.";
                 }
 
                 Quantidade += quantidade;
