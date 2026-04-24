@@ -1,5 +1,6 @@
 ﻿using System;
 using InventorySystem.Models;
+using System.Globalization;
 
 
 namespace InventorySystem
@@ -15,27 +16,19 @@ namespace InventorySystem
                 Console.WriteLine("           SISTEMA DE ESTOQUE           ");
                 Console.WriteLine("========================================");
                 Console.WriteLine("Deseja criar um produto? (S/N)");
-                string escolhaCriarProd = Console.ReadLine();
-                char escolhaFinalChar;
-                bool verificaEscolhaProd = char.TryParse(escolhaCriarProd, out escolhaFinalChar);
+                string entradaUsuario = Console.ReadLine();
+                char entradaUsuarioChar;
 
-                while (!verificaEscolhaProd)
+                while (!_tentaConverterChar(entradaUsuario, out entradaUsuarioChar) || !_verificaEntradaInicial(entradaUsuarioChar))
                 {
-                    Console.WriteLine("Digite apenas um caracter");
-                    escolhaCriarProd = Console.ReadLine();
-                    verificaEscolhaProd = char.TryParse(escolhaCriarProd, out escolhaFinalChar);
+                    Console.WriteLine("Escolha apenas entre 'S' ou 'N'.");
+                    entradaUsuario = Console.ReadLine();
                 }
 
-                while (escolhaFinalChar != 'S' && escolhaFinalChar != 's' && escolhaFinalChar != 'N' && escolhaFinalChar != 'n')
+                if (!_liberarAcessoInicial(entradaUsuarioChar))
                 {
-                    Console.WriteLine("Escolha inválida!");
-                    escolhaCriarProd = Console.ReadLine();
-                    verificaEscolhaProd = char.TryParse(escolhaCriarProd, out escolhaFinalChar);
-                }
-
-                while (escolhaFinalChar == 'N' || escolhaFinalChar == 'n')
-                {
-                    Console.WriteLine("Saindo...");
+                    Console.WriteLine("O Programa irá fechar! Pressione qualquer tecla...");
+                    Console.ReadKey();
                     escolhaInicial = false;
                     return;
                 }
@@ -64,14 +57,14 @@ namespace InventorySystem
                 Console.WriteLine("\n [1] Unidade\n [2] Pacote\n [3] Kilograma\n [4] Litro");
                 Console.Write("Escolha uma opção: ");
                 string entradaTipoUnidade = Console.ReadLine();
-                int tipoUnidade;
-                bool verificaTipoUn = int.TryParse(entradaTipoUnidade, out tipoUnidade);
+                decimal tipoUnidade;
+                bool verificaTipoUn = decimal.TryParse(entradaTipoUnidade, out tipoUnidade);
                 while (!verificaTipoUn)
                 {
                     Console.WriteLine("Opção inválida. Escolha entre 1 e 4.");
                     Console.WriteLine("Digite o tipo de unidade:\n [1] Unidade\n [2] Pacote\n [3] Kilograma\n [4] Litro");
                     entradaTipoUnidade = Console.ReadLine();
-                    verificaTipoUn = int.TryParse(entradaTipoUnidade, out tipoUnidade);
+                    verificaTipoUn = decimal.TryParse(entradaTipoUnidade, out tipoUnidade);
                 }
 
                 Produto produto = null;
@@ -142,6 +135,7 @@ namespace InventorySystem
                 Estoque estoque = new Estoque(produto, locacao, escolhaQuantidade);
 
                 Console.WriteLine(estoque);
+
 
                 Console.WriteLine("\n--- AÇÕES ---");
                 Console.WriteLine("\n [1] Adicionar\n [2] Remover\n [3] Sair");
@@ -235,5 +229,35 @@ namespace InventorySystem
                 Console.ReadKey();
             }
         }
+
+        private static bool _verificaEntradaInicial(char entradaUser)
+        {
+            char entradaUserLower = char.ToLower(entradaUser);
+
+            if (entradaUserLower != 'n' && entradaUserLower != 's')
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        private static bool _liberarAcessoInicial(char entradaUser)
+        {
+            char entradaUserLower = char.ToLower(entradaUser);
+
+            return entradaUserLower == 's';
+        }
+
+        private static bool _ehChar(char entradaUsuario)
+        {
+            bool ehChar = Char.IsLetter(entradaUsuario);
+            return ehChar;
+        }
+
+        private static bool _tentaConverterChar(string entradaUsuario, out char saidaUsuario)
+        {
+            return char.TryParse(entradaUsuario, out saidaUsuario);
+        }
     }
-}
+    }
