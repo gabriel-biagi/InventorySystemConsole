@@ -108,20 +108,20 @@ namespace InventorySystem
 
                 if (escolhaAcao == 1)
                 {
-                    int escolhaQtd = _validarEntradaInt("Quantidade");
-
-                    string retornoMetodo = estoque.AdicionaQuantidadeEstoque(escolhaQtd);
-                    if (retornoMetodo == null)
+                    int escolhaQtd;
+                    string retornoMetodo;
+                    do
                     {
-                        Console.WriteLine("Operação realizada com sucesso.");
-                    }
-                    else
-                    {
-                        Console.WriteLine(retornoMetodo);
-                        Console.WriteLine("\nEncerrando sistema...");
-                        Console.ReadKey();
-                        break;
-                    }
+                        escolhaQtd = _validarEntradaInt("Quantidade");
+                        retornoMetodo = estoque.AdicionaQuantidadeEstoque(escolhaQtd);
+                        if (retornoMetodo == null)
+                        {
+                            Console.WriteLine("Operação bem sucedida.");
+                        }
+                        else { 
+                            Console.WriteLine(retornoMetodo); 
+                        }
+                    } while (retornoMetodo != null);
 
                     Console.WriteLine(estoque);
 
@@ -129,19 +129,21 @@ namespace InventorySystem
 
                 if (escolhaAcao == 2)
                 {
-                    decimal escolhaQtdSair = _validarEntradaInt("Quantidade");
-
-                    string retornoMetodo = estoque.RemoveQuantidadeEstoque(escolhaQtdSair);
-                    if (retornoMetodo == null)
+                    int escolhaQtdSair;
+                    string retornoMetodo;
+                    do
                     {
-                        Console.WriteLine("Operação realizada com sucesso.");
-                    } else
-                    {
-                        Console.WriteLine(retornoMetodo);
-                        Console.WriteLine("\nEncerrando sistema...");
-                        Console.ReadKey();
-                        break;
-                    }
+                        escolhaQtdSair = _validarEntradaInt("Quantidade");
+                        retornoMetodo = estoque.RemoveQuantidadeEstoque(escolhaQtdSair);
+                        if (retornoMetodo == null)
+                        {
+                            Console.WriteLine("Operação bem sucedida.");
+                        }
+                        else
+                        {
+                            Console.WriteLine(retornoMetodo);
+                        }
+                    } while (retornoMetodo != null);
                         
 
                     Console.WriteLine(estoque);
