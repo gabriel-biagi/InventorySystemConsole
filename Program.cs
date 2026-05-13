@@ -49,7 +49,7 @@ namespace InventorySystem
                 Console.WriteLine("\nTipo de unidade:");
                 Console.WriteLine("\n [1] Unidade\n [2] Pacote\n [3] Kilograma\n [4] Litro");
                 Console.Write("Escolha uma opção: ");
-                int entradaTipoUnidade = _validarEntradaInt_TipoUnidade("Tipo de Unidade");
+                int entradaTipoUnidade = _validarEntradaInt("Tipo de Unidade", 1, 4);
 
                 Produto produto = null;
 
@@ -79,7 +79,7 @@ namespace InventorySystem
                 Locacao locacao = new Locacao(escolhaColuna, escolhaPrateleira, escolhaPosicao);
 
                 Console.WriteLine("\nQuantidade Inicial");
-                int escolhaQuantidade = _validarEntradaInt_Quantidade("Quantidade");
+                int escolhaQuantidade = _validarEntradaInt("Quantidade");
 
                 Estoque estoque = new Estoque(produto, locacao, escolhaQuantidade);
 
@@ -108,7 +108,7 @@ namespace InventorySystem
 
                 if (escolhaAcao == 1)
                 {
-                    int escolhaQtd = _validarEntradaInt_Quantidade("Quantidade");
+                    int escolhaQtd = _validarEntradaInt("Quantidade");
 
                     string retornoMetodo = estoque.AdicionaQuantidadeEstoque(escolhaQtd);
                     if (retornoMetodo == null)
@@ -129,7 +129,7 @@ namespace InventorySystem
 
                 if (escolhaAcao == 2)
                 {
-                    decimal escolhaQtdSair = _validarEntradaInt_Quantidade("Quantidade");
+                    decimal escolhaQtdSair = _validarEntradaInt("Quantidade");
 
                     string retornoMetodo = estoque.RemoveQuantidadeEstoque(escolhaQtdSair);
                     if (retornoMetodo == null)
@@ -188,7 +188,7 @@ namespace InventorySystem
             return char.TryParse(entradaUsuario, out saidaUsuario);
         }
 
-        private static int _validarEntradaInt(string local)
+        private static int _validarEntradaInt(string local, int min = 1, int max = int.MaxValue)
         {
             Console.WriteLine($"Digite uma opção para {local}");
 
@@ -198,7 +198,7 @@ namespace InventorySystem
             {
                 bool verificaColuna = int.TryParse(entrada, out int saidaInteiro);
 
-                if (verificaColuna)
+                if (verificaColuna && saidaInteiro >= min && saidaInteiro <= max)
                 {
                     return saidaInteiro;
                 }
@@ -211,50 +211,5 @@ namespace InventorySystem
             }
         }
 
-        private static int _validarEntradaInt_TipoUnidade(string local)
-        {
-            Console.WriteLine($"Digite uma opção para {local}");
-
-            string entrada = Console.ReadLine();
-
-            while (true)
-            {
-                bool verificaColuna = int.TryParse(entrada, out int saidaInteiro);
-
-                if (verificaColuna && saidaInteiro > 0 && saidaInteiro <= 4)
-                {
-                    return saidaInteiro;
-                }
-                else
-                {
-                    Console.WriteLine("Erro, Digite uma opção válida.");
-
-                    entrada = Console.ReadLine();
-                }
-            }
-        }
-
-        private static int _validarEntradaInt_Quantidade(string local)
-        {
-            Console.WriteLine($"Digite uma opção para {local}");
-
-            string entrada = Console.ReadLine();
-
-            while (true)
-            {
-                bool verificaColuna = int.TryParse(entrada, out int saidaInteiro);
-
-                if (verificaColuna && saidaInteiro > 0)
-                {
-                    return saidaInteiro;
-                }
-                else
-                {
-                    Console.WriteLine("Erro, Digite uma opção válida.");
-
-                    entrada = Console.ReadLine();
-                }
-            }
-        }
     }
     }
