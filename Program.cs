@@ -85,7 +85,7 @@ namespace InventorySystem
                 Estoque estoque = new Estoque(produto, locacao, escolhaQuantidade);
                 ListaDoEstoque.AdicionarAoEstoque(estoque);
 
-                Console.WriteLine(estoque);
+                Console.WriteLine(estoque.ToDetalhadoString());
 
                 Console.WriteLine("\n--- AÇÕES ---");
                 Console.WriteLine("\n [1] Adicionar\n [2] Remover\n [3] Listar Estoque\n [4] Sair");
@@ -108,7 +108,7 @@ namespace InventorySystem
                         }
                     } while (retornoMetodo != null);
 
-                    Console.WriteLine(estoque);
+                    Console.WriteLine(estoque.ToDetalhadoString());
 
                 }
 
@@ -131,7 +131,7 @@ namespace InventorySystem
                     } while (retornoMetodo != null);
                         
 
-                    Console.WriteLine(estoque);
+                    Console.WriteLine(estoque.ToDetalhadoString());
                 }
 
                 if (escolhaAcao == 3)

@@ -27,19 +27,15 @@ namespace InventorySystem.Models
         public override string ToString()
         {
             return
-                "========================================\n" +
-                "              PRODUTO                   \n" +
-                "========================================\n" +
-                $"Nome       : {Produto.Nome}\n" +
-                $"Código     : {Produto.Codigo}\n" +
-                $"Quantidade : {Quantidade}\n" +
-                "----------------------------------------\n" +
-                "              LOCALIZAÇÃO               \n" +
-                "----------------------------------------\n" +
-                $"Coluna     : {Locacao.Coluna}\n" +
-                $"Prateleira : {Locacao.Prateleira}\n" +
-                $"Posição    : {Locacao.Item}\n" +
-                "========================================";
+                $"[{Produto.Codigo}] {Produto.Nome}\n" +
+                $"Quantidade: {Quantidade} | " +
+                $"Locação: C{Locacao.Coluna} - P{Locacao.Prateleira} - I{Locacao.Item}\n" +
+                "----------------------------------------";
+        }
+
+        public string ToDetalhadoString()
+        {
+            return "========================================\n" + " PRODUTO \n" + "========================================\n" + $"Nome : {Produto.Nome}\n" + $"Código : {Produto.Codigo}\n" + $"Quantidade : {Quantidade}\n" + "----------------------------------------\n" + " LOCALIZAÇÃO \n" + "----------------------------------------\n" + $"Coluna : {Locacao.Coluna}\n" + $"Prateleira : {Locacao.Prateleira}\n" + $"Posição : {Locacao.Item}\n" + "========================================";
         }
 
         public string AdicionaQuantidadeEstoque(decimal quantidade)
