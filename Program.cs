@@ -10,6 +10,7 @@ namespace InventorySystem
     {
         static void Main(string[] args)
         {
+            GestaoEstoque ListaDoEstoque = new GestaoEstoque();
             bool escolhaInicial = true;
             while (escolhaInicial)
             {
@@ -82,29 +83,13 @@ namespace InventorySystem
                 int escolhaQuantidade = _validarEntradaInt("Quantidade");
 
                 Estoque estoque = new Estoque(produto, locacao, escolhaQuantidade);
+                ListaDoEstoque.AdicionarAoEstoque(estoque);
 
                 Console.WriteLine(estoque);
 
                 Console.WriteLine("\n--- AÇÕES ---");
-                Console.WriteLine("\n [1] Adicionar\n [2] Remover\n [3] Sair");
-                int escolhaAcao;
-                string entradaAcao = Console.ReadLine();
-                bool verificaAcao = int.TryParse(entradaAcao, out escolhaAcao);
-                while (!verificaAcao)
-                {
-                    Console.WriteLine("Digite o Número correspondente...\n");
-                    Console.WriteLine("\n [1] Adicionar\n [2] Remover\n [3] Sair");
-                    entradaAcao = Console.ReadLine();
-                    verificaAcao = int.TryParse(entradaAcao, out escolhaAcao);
-                }
-
-                while (escolhaAcao != 1 && escolhaAcao != 2 && escolhaAcao != 3)
-                {
-                    Console.WriteLine("Digite o Número correspondente...\n");
-                    Console.WriteLine("\n [1] Adicionar\n [2] Remover\n [3] Sair");
-                    entradaAcao = Console.ReadLine();
-                    verificaAcao = int.TryParse(entradaAcao, out escolhaAcao);
-                }
+                Console.WriteLine("\n [1] Adicionar\n [2] Remover\n [3] Listar Estoque\n [4] Sair");
+                int escolhaAcao = _validarEntradaInt("Ação Desejada", 1, 4);
 
                 if (escolhaAcao == 1)
                 {
@@ -150,6 +135,14 @@ namespace InventorySystem
                 }
 
                 if (escolhaAcao == 3)
+                {
+                    foreach (Estoque item in ListaDoEstoque.ItensEstoque)
+                    {
+                        Console.WriteLine(item);
+                    }
+                }
+
+                if (escolhaAcao == 4)
                 {
                     Console.WriteLine("Saindo...");
                     escolhaInicial = false;
