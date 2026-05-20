@@ -10,17 +10,34 @@ namespace InventorySystem.Models
         {
             ItensEstoque = new List<Estoque>();
         }
+
         public void AdicionarAoEstoque(Estoque estoque)
         {
             ItensEstoque.Add(estoque);
         }
+
         public List<Estoque> ListarEstoque()
         {
             return ItensEstoque;
         }
-        public void RemoverDoEstoque(Estoque estoque)
+
+        public string RemoverDoEstoque(int codigoProduto)
         {
-            ItensEstoque.Remove(estoque);
+            Estoque item = produtoExiste(codigoProduto);
+
+            if (item == null)
+            {
+                return "Erro, Código não encontrado.";
+            } else
+            {
+                ItensEstoque.Remove(item);
+                return "Operação realizada com sucesso.";
+            }
+        }
+
+        private Estoque? produtoExiste(int codigoProduto)
+        {
+            return ItensEstoque.Find(produto => produto.Produto.Codigo == codigoProduto);
         }
     }
 }

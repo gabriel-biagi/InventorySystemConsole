@@ -88,8 +88,8 @@ namespace InventorySystem
                 Console.WriteLine(estoque.ToDetalhadoString());
 
                 Console.WriteLine("\n--- AÇÕES ---");
-                Console.WriteLine("\n [1] Adicionar\n [2] Remover\n [3] Listar Estoque\n [4] Sair");
-                int escolhaAcao = _validarEntradaInt("Ação Desejada", 1, 4);
+                Console.WriteLine("\n [1] Adicionar Quantidade\n [2] Remover Quantidade\n [3] Listar Estoque\n [4] Remover Item do Estoque\n [5] Sair");
+                int escolhaAcao = _validarEntradaInt("Ação Desejada", 1, 5);
 
                 if (escolhaAcao == 1)
                 {
@@ -143,6 +143,13 @@ namespace InventorySystem
                 }
 
                 if (escolhaAcao == 4)
+                {
+
+                    int entradaCodigoProduto = _validarEntradaInt("Código do Produto");
+                    Console.WriteLine(ListaDoEstoque.RemoverDoEstoque(entradaCodigoProduto));
+                }
+
+                if (escolhaAcao == 5)
                 {
                     Console.WriteLine("Saindo...");
                     escolhaInicial = false;
