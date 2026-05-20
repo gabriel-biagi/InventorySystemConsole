@@ -37,8 +37,9 @@ namespace InventorySystem
 
                 Console.WriteLine("\n--- CADASTRO DE PRODUTO ---");
                 Console.WriteLine("Nome do produto:");
-                string entradaNomeProduto= Console.ReadLine();
-                while (string.IsNullOrWhiteSpace(entradaNomeProduto)) {
+                string entradaNomeProduto = Console.ReadLine();
+                while (string.IsNullOrWhiteSpace(entradaNomeProduto))
+                {
                     Console.WriteLine("Nome inválido. Tente novamente.");
                     entradaNomeProduto = Console.ReadLine();
                 }
@@ -103,8 +104,9 @@ namespace InventorySystem
                         {
                             Console.WriteLine("Operação bem sucedida.");
                         }
-                        else { 
-                            Console.WriteLine(retornoMetodo); 
+                        else
+                        {
+                            Console.WriteLine(retornoMetodo);
                         }
                     } while (retornoMetodo != null);
 
@@ -129,7 +131,7 @@ namespace InventorySystem
                             Console.WriteLine(retornoMetodo);
                         }
                     } while (retornoMetodo != null);
-                        
+
 
                     Console.WriteLine(estoque.ToDetalhadoString());
                 }
@@ -146,7 +148,14 @@ namespace InventorySystem
                 {
 
                     int entradaCodigoProduto = _validarEntradaInt("Código do Produto");
-                    Console.WriteLine(ListaDoEstoque.RemoverDoEstoque(entradaCodigoProduto));
+                    string retornoMetodo = ListaDoEstoque.RemoverDoEstoque(entradaCodigoProduto);
+                    if (retornoMetodo == null)
+                    {
+                        Console.WriteLine("Operação bem sucedida.");
+                    } else
+                    {
+                        Console.WriteLine(entradaCodigoProduto);
+                    }
                 }
 
                 if (escolhaAcao == 5)
@@ -214,4 +223,4 @@ namespace InventorySystem
         }
 
     }
-    }
+}

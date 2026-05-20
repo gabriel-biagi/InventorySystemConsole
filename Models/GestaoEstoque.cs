@@ -31,7 +31,7 @@ namespace InventorySystem.Models
             } else
             {
                 ItensEstoque.Remove(item);
-                return "Operação realizada com sucesso.";
+                return null;
             }
         }
 
