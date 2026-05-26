@@ -62,7 +62,7 @@ namespace InventorySystem.Models
 
         public string RemoveQuantidadeEstoque(decimal quantidade)
         {
-            if (quantidade <= 0)
+            if (quantidade < 0)
             {
                 return "Quantidade inválida!";
             }
