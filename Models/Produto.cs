@@ -14,5 +14,10 @@ namespace InventorySystem.Models
             Codigo = codigo;
             TipoUnidade = tipounidade;
         }
+
+        public void AlterarNome(string novoNome)
+        {
+            Nome = novoNome;
+        }
     }
 }

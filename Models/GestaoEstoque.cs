@@ -21,24 +21,11 @@ namespace InventorySystem.Models
             return ItensEstoque;
         }
 
-        public string RemoverDoEstoque(int codigoProduto)
+        public void RemoverDoEstoque(Estoque estoque)
         {
-            Estoque item = produtoExiste(codigoProduto);
-
-            if (item == null)
-            {
-                return "Erro, Código não encontrado.";
-            } else
-            {
-                ItensEstoque.Remove(item);
-                return null;
-            }
+            ItensEstoque.Remove(estoque);
         }
 
-        private Estoque? produtoExiste(int codigoProduto)
-        {
-            return ItensEstoque.Find(produto => produto.Produto.Codigo == codigoProduto);
-        }
 
         public Estoque? retornaItemDoEstoque(int codigoProduto)
         {

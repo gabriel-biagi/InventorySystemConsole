@@ -17,116 +17,28 @@ namespace InventorySystem
                 Console.WriteLine("           SISTEMA DE ESTOQUE           ");
                 Console.WriteLine("========================================");
                 Console.WriteLine("\n [1] Cadastro\n [2] Movimentação\n [3] Manutenção\n [4] Sair");
-                string entradaUsuario = Console.ReadLine();
-                char entradaUsuarioChar;
 
-                while (!_tentaConverterChar(entradaUsuario, out entradaUsuarioChar) || !verificaEntradaChar(entradaUsuarioChar))
+                int escolhaUsuario = validarEntradaInt("Navegar.", 1, 4);
+
+                if (escolhaUsuario == 1)
                 {
-                    Console.WriteLine("Escolha apenas entre 'S' ou 'N'.");
-                    entradaUsuario = Console.ReadLine();
+                    menuCadastro(ListaDoEstoque);
                 }
-
-                if (!_liberarAcessoInicial(entradaUsuarioChar))
+                if (escolhaUsuario == 2)
                 {
-                    Console.WriteLine("O Programa irá fechar! Pressione qualquer tecla...");
-                    Console.ReadKey();
-                    escolhaInicial = false;
+                    menuMovimentacao(ListaDoEstoque);
+                }
+                if (escolhaUsuario == 3)
+                {
+                    menuManutencao(ListaDoEstoque);
+                }
+                if (escolhaUsuario == 4)
+                {
                     return;
                 }
-
-                Console.WriteLine("\n--- CADASTRO DE PRODUTO ---");
-                Console.WriteLine("Nome do produto:");
-                string entradaNomeProduto = Console.ReadLine();
-                while (string.IsNullOrWhiteSpace(entradaNomeProduto))
-                {
-                    Console.WriteLine("Nome inválido. Tente novamente.");
-                    entradaNomeProduto = Console.ReadLine();
-                }
-
-
-                Console.WriteLine("CÓDIGO");
-                int codigoProduto = validarEntradaInt("Código do Produto");
-
-                Console.WriteLine("\nTipo de unidade:");
-                Console.WriteLine("\n [1] Unidade\n [2] Pacote\n [3] Kilograma\n [4] Litro");
-                Console.Write("Escolha uma opção: ");
-                int entradaTipoUnidade = validarEntradaInt("Tipo de Unidade", 1, 4);
-
-                Produto produto = null;
-
-                switch (entradaTipoUnidade)
-                {
-                    case 1:
-                        produto = new Produto(entradaNomeProduto, codigoProduto, TipoUnidade.Un);
-                        break;
-                    case 2:
-                        produto = new Produto(entradaNomeProduto, codigoProduto, TipoUnidade.Pct);
-                        break;
-                    case 3:
-                        produto = new Produto(entradaNomeProduto, codigoProduto, TipoUnidade.Kg);
-                        break;
-                    case 4:
-                        produto = new Produto(entradaNomeProduto, codigoProduto, TipoUnidade.Lt);
-                        break;
-                }
-
-                Console.WriteLine("\n--- LOCALIZAÇÃO ---");
-                int escolhaColuna = validarEntradaInt("Coluna");
-
-                int escolhaPrateleira = validarEntradaInt("Prateleira");
-
-                int escolhaPosicao = validarEntradaInt("Posição");
-
-                Locacao locacao = new Locacao(escolhaColuna, escolhaPrateleira, escolhaPosicao);
-
-                Console.WriteLine("\nQuantidade Inicial");
-                int escolhaQuantidade = validarEntradaInt("Quantidade");
-
-                Estoque estoque = new Estoque(produto, locacao, escolhaQuantidade);
-                ListaDoEstoque.AdicionarAoEstoque(estoque);
-
-                Console.WriteLine(estoque.ToDetalhadoString());
-
-                Console.WriteLine("\n--- AÇÕES ---");
-                Console.WriteLine("\n [1] Adicionar Quantidade\n [2] Remover Quantidade\n [3] Listar Estoque\n [4] Remover Item do Estoque\n [5] Sair");
-                int escolhaAcao = validarEntradaInt("Ação Desejada", 1, 5);
-
-
-
-
-
                 
-
-                if (escolhaAcao == 4)
-                {
-
-                    int entradaCodigoProduto = validarEntradaInt("Código do Produto");
-                    string retornoMetodo = ListaDoEstoque.RemoverDoEstoque(entradaCodigoProduto);
-                    if (retornoMetodo == null)
-                    {
-                        Console.WriteLine("Operação bem sucedida.");
-                    }
-                    else
-                    {
-                        Console.WriteLine(entradaCodigoProduto);
-                    }
-                }
-
-                if (escolhaAcao == 5)
-                {
-                    Console.WriteLine("Saindo...");
-                    escolhaInicial = false;
-                    return;
-                }
-
-                Console.ReadKey();
             }
         }
-
-
-
-        Console.WriteLine(estoque.ToDetalhadoString());
-}
 
         private static bool verificaEntradaChar(char entradaUser)
         {
@@ -376,6 +288,51 @@ namespace InventorySystem
             {
                 return;
             }
+        }
+
+        private static void menuManutencao(GestaoEstoque ListaDoEstoque)
+        {
+            Console.WriteLine("\n--- Menu de Manutenção ---");
+            Console.WriteLine("\n--- AÇÕES ---");
+            Console.WriteLine("\n [1] Alterar Nome de Produto\n [2] Remover Produto do Estoque\n [3] Sair");
+
+            int escolhaAcao = validarEntradaInt("Ação Desejada", 1, 3);
+
+            if (escolhaAcao == 3)
+            {
+                return;
+            }
+
+            if (escolhaAcao == 1)
+            {
+                while (true)
+                {
+                    Estoque item = buscaItemPorCodigo(ListaDoEstoque);
+
+                    if (item == null)
+                    {
+                        return;
+                    }
+
+                    string novoNome = validaString("Produto");
+                    item.Produto.AlterarNome(novoNome);
+                    Console.WriteLine("Processo concluido, nome atualizado.");
+                    return;
+                }
+            }
+
+            if (escolhaAcao == 2)
+            {
+                Estoque item = buscaItemPorCodigo(ListaDoEstoque);
+
+                if (item == null)
+                {
+                    return;
+                }
+
+                ListaDoEstoque.RemoverDoEstoque(item);
+            }
+
         }
     }
 }
