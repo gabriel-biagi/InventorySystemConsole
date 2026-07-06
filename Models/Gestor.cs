@@ -1,10 +1,12 @@
 ﻿
 namespace InventorySystem.Models
 {
-    public class Gestor : Funcionario
+    public class Gestor : Operador
     {
         public Gestor(string nome, int matricula) : base(nome, matricula)
         {
         }
+
+        
     }
 }
