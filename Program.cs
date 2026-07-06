@@ -170,23 +170,15 @@ namespace InventorySystem
                 Console.Write("Escolha uma opção: ");
                 int entradaTipoUnidade = validarEntradaInt("Tipo de Unidade", 1, 4);
 
-                Produto produto = null;
-
-                switch (entradaTipoUnidade)
+                TipoUnidade tipoUnidade = entradaTipoUnidade switch
                 {
-                    case 1:
-                        produto = new Produto(entradaNomeProduto, codigoProduto, TipoUnidade.Un);
-                        break;
-                    case 2:
-                        produto = new Produto(entradaNomeProduto, codigoProduto, TipoUnidade.Pct);
-                        break;
-                    case 3:
-                        produto = new Produto(entradaNomeProduto, codigoProduto, TipoUnidade.Kg);
-                        break;
-                    case 4:
-                        produto = new Produto(entradaNomeProduto, codigoProduto, TipoUnidade.Lt);
-                        break;
-                }
+                    1 => TipoUnidade.Un,
+                    2 => TipoUnidade.Pct,
+                    3 => TipoUnidade.Kg,
+                    4 => TipoUnidade.Lt,
+                };
+
+                Produto produto = new Produto(entradaNomeProduto, codigoProduto, tipoUnidade);
 
                 Console.WriteLine("\n--- LOCALIZAÇÃO ---");
                 int escolhaColuna = validarEntradaInt("Coluna");
