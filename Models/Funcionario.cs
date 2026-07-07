@@ -8,7 +8,7 @@ namespace InventorySystem.Models
         public int Matricula { get; private set; }
 
         public Funcionario(string nome, int matricula)
-        {
+        {   
             Nome = nome;
             Matricula = matricula;
         }

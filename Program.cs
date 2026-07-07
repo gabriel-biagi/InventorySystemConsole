@@ -11,6 +11,23 @@ namespace InventorySystem
         static void Main(string[] args)
         {
             GestaoEstoque ListaDoEstoque = new GestaoEstoque();
+
+            GestaoFuncionarios ListaDeFuncionarios = new GestaoFuncionarios();
+            ListaDeFuncionarios.AdicionarFuncionario(new Operador("Gabriel", 1000));
+            ListaDeFuncionarios.AdicionarFuncionario(new Gestor("Admin", 9999));
+            Funcionario funcionario;
+            while (true)
+            {
+                Console.WriteLine("Digite sua matricula");
+                int matricula = int.Parse(Console.ReadLine());
+
+                funcionario = ListaDeFuncionarios.RetornaFuncionario(matricula);
+                if (funcionario != null)
+                {
+                    break;
+                }
+            }
+
             while (true)
             {
                 Console.WriteLine("========================================");
@@ -20,9 +37,12 @@ namespace InventorySystem
 
                 int escolhaUsuario = validarEntradaInt("Navegar.", 1, 4);
 
-                if (escolhaUsuario == 1)
+                if (escolhaUsuario == 1 && funcionario is Gestor)
                 {
                     menuCadastro(ListaDoEstoque);
+                } else
+                {
+                    Console.WriteLine("Você não tem permissão.");
                 }
                 if (escolhaUsuario == 2)
                 {
@@ -50,19 +70,6 @@ namespace InventorySystem
             }
 
             return true;
-        }
-
-        private static bool _liberarAcessoInicial(char entradaUser)
-        {
-            char entradaUserLower = char.ToLower(entradaUser);
-
-            return entradaUserLower == 's';
-        }
-
-        private static bool _ehChar(char entradaUsuario)
-        {
-            bool ehChar = Char.IsLetter(entradaUsuario);
-            return ehChar;
         }
 
         private static bool _tentaConverterChar(string entradaUsuario, out char saidaUsuario)
@@ -138,7 +145,7 @@ namespace InventorySystem
                 Console.WriteLine("Operação cancelada, voltando ao Menu Inicial");
                 return null;
             }
-            Estoque item = gestaoEstoque.retornaItemDoEstoque(codigoProduto);
+            Estoque item = gestaoEstoque.RetornaItemDoEstoque(codigoProduto);
 
             while (item == null)
             {
@@ -148,7 +155,7 @@ namespace InventorySystem
                 {
                     return null;
                 }
-                item = gestaoEstoque.retornaItemDoEstoque(codigoProduto);
+                item = gestaoEstoque.RetornaItemDoEstoque(codigoProduto);
             }
 
             return item;
