@@ -37,21 +37,36 @@ namespace InventorySystem
 
                 int escolhaUsuario = validarEntradaInt("Navegar.", 1, 4);
 
-                if (escolhaUsuario == 1 && funcionario is Gestor)
+                if (escolhaUsuario == 1)
                 {
+                    if (funcionario is Gestor)
+                    {
                     menuCadastro(ListaDoEstoque);
-                } else
-                {
-                    Console.WriteLine("Você não tem permissão.");
+                    } else
+                    {
+                        Console.Clear();
+                        Console.WriteLine("Você não tem permissão.");
+                    }
+
                 }
+
                 if (escolhaUsuario == 2)
                 {
                     menuMovimentacao(ListaDoEstoque);
                 }
+
                 if (escolhaUsuario == 3)
                 {
+                    if(funcionario is Gestor)
+                    {
                     menuManutencao(ListaDoEstoque);
-                }
+                    } else
+                    {
+                        Console.Clear();
+                        Console.WriteLine("Você não tem permissão.");
+                    }
+                } 
+
                 if (escolhaUsuario == 4)
                 {
                     return;
