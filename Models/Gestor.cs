@@ -7,6 +7,25 @@ namespace InventorySystem.Models
         {
         }
 
-        
+        public void CadastrarProduto(Produto produto, Locacao locacao, decimal quantidade, GestaoEstoque ItensEstoque)
+        {
+            Estoque estoque = new Estoque(produto, locacao, quantidade);
+            ItensEstoque.AdicionarAoEstoque(estoque);
+        }
+
+        public void AlterarNome(Produto produto, string novoNome)
+        {
+            produto.AlterarNome(novoNome);
+        }
+
+        public void ExcluirProduto(GestaoEstoque estoque, Estoque produto)
+        {
+            estoque.RemoverDoEstoque(produto);
+        }
+
+        public string EstornarProduto(Estoque produto, decimal quantidade)
+        {
+            return produto.AdicionaQuantidadeEstoque(quantidade);       
+        }
     }
 }

@@ -25,7 +25,7 @@ namespace InventorySystem.Models
 
         public Estoque? BuscarItem(GestaoEstoque ListaDoEstoque, int codigo)
         {
-            return ListaDoEstoque.retornaItemDoEstoque(codigo);
+            return ListaDoEstoque.RetornaItemDoEstoque(codigo);
         }
     }
 }

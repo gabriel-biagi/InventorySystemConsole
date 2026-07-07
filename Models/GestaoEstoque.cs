@@ -27,7 +27,7 @@ namespace InventorySystem.Models
         }
 
 
-        public Estoque? retornaItemDoEstoque(int codigoProduto)
+        public Estoque? RetornaItemDoEstoque(int codigoProduto)
         {
             return ItensEstoque.Find(produto => produto.Produto.Codigo == codigoProduto);
         }
