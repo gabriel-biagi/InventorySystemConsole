@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Globalization;
+using InventorySystem.Models.Exceptions;
 
 namespace InventorySystem.Models
 {
@@ -38,53 +39,45 @@ namespace InventorySystem.Models
             return "========================================\n" + " PRODUTO \n" + "========================================\n" + $"Nome : {Produto.Nome}\n" + $"Código : {Produto.Codigo}\n" + $"Quantidade : {Quantidade}\n" + "----------------------------------------\n" + " LOCALIZAÇÃO \n" + "----------------------------------------\n" + $"Coluna : {Locacao.Coluna}\n" + $"Prateleira : {Locacao.Prateleira}\n" + $"Posição : {Locacao.Item}\n" + "========================================";
         }
 
-        public string AdicionaQuantidadeEstoque(decimal quantidade)
+        public void AdicionaQuantidadeEstoque(decimal quantidade)
         {
             if (quantidade <= 0)
             {
-                return "Quantidade inválida!";
+                throw new EstoqueException("Quantidade não pode ser menor do que 0!");
             }
 
             if (Produto.TipoUnidade == TipoUnidade.Un || Produto.TipoUnidade == TipoUnidade.Pct)
             {
                 if (!_verificaNumeroInt(quantidade))
                 {
-                    return "A Quantidade informada não é válida para o tipo de unidade.";
+                    throw new EstoqueException("A Quantidade informada não é válida para o tipo de unidade.");
                 }
-
-                Quantidade += quantidade;
-                return null;
             }
 
             Quantidade += quantidade;
-            return null;
         }
 
-        public string RemoveQuantidadeEstoque(decimal quantidade)
+        public void RemoveQuantidadeEstoque(decimal quantidade)
         {
             if (quantidade < 0)
             {
-                return "Quantidade inválida!";
+                throw new EstoqueException("Quantidade não pode ser menor do que 0!");
             }
 
             if (quantidade > Quantidade)
             {
-                return "Quantidade informada maior do que disponível em Estoque.";
+                throw new EstoqueException("Quantidade informada maior do que disponível em Estoque.");
             }
 
             if (Produto.TipoUnidade == TipoUnidade.Un || Produto.TipoUnidade == TipoUnidade.Pct)
             {
                 if (!_verificaNumeroInt(quantidade))
                 {
-                    return "A Quantidade informada não é válida para o tipo de unidade.";
+                    throw new EstoqueException("A Quantidade informada não é válida para o tipo de unidade.");
                 }
-
-                Quantidade -= quantidade;
-                return null;
             }
 
             Quantidade -= quantidade;
-            return null;
         }
 
         private bool _verificaNumeroInt(decimal quantidade)

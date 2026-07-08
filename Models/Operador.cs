@@ -8,14 +8,14 @@ namespace InventorySystem.Models
         {
         }
 
-        public string RealizarBaixa(Estoque item, decimal quantidade)
+        public void RealizarBaixa(Estoque item, decimal quantidade)
         {
-            return item.RemoveQuantidadeEstoque(quantidade);
+            item.RemoveQuantidadeEstoque(quantidade);
         }
 
-        public string ReceberMercadoria(Estoque item, decimal quantidade)
+        public void ReceberMercadoria(Estoque item, decimal quantidade)
         {
-            return item.AdicionaQuantidadeEstoque(quantidade);
+            item.AdicionaQuantidadeEstoque(quantidade);
         }
 
         public List<Estoque> ListarEstoque(GestaoEstoque ListaDoEstoque)

@@ -23,9 +23,9 @@ namespace InventorySystem.Models
             estoque.RemoverDoEstoque(produto);
         }
 
-        public string EstornarProduto(Estoque produto, decimal quantidade)
+        public void EstornarProduto(Estoque produto, decimal quantidade)
         {
-            return produto.AdicionaQuantidadeEstoque(quantidade);       
+            produto.AdicionaQuantidadeEstoque(quantidade);       
         }
     }
 }
