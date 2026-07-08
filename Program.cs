@@ -1,7 +1,6 @@
 ﻿using System;
 using InventorySystem.Models;
-using System.Globalization;
-using System.Collections.Generic;
+using InventorySystem.Models.Exceptions;
 
 
 namespace InventorySystem
@@ -183,143 +182,173 @@ namespace InventorySystem
 
             while (true)
             {
-                Console.WriteLine("\n--- CADASTRO DE PRODUTO ---");
-                string entradaNomeProduto = validaString("Produto");
-                int codigoProduto = validarEntradaInt("Código do Produto");
-
-                Console.WriteLine("\nTipo de unidade:");
-                Console.WriteLine("\n [1] Unidade\n [2] Pacote\n [3] Kilograma\n [4] Litro");
-                Console.Write("Escolha uma opção: ");
-                int entradaTipoUnidade = validarEntradaInt("Tipo de Unidade", 1, 4);
-
-                TipoUnidade tipoUnidade = entradaTipoUnidade switch
+                try
                 {
-                    1 => TipoUnidade.Un,
-                    2 => TipoUnidade.Pct,
-                    3 => TipoUnidade.Kg,
-                    4 => TipoUnidade.Lt,
-                };
 
-                Produto produto = new Produto(entradaNomeProduto, codigoProduto, tipoUnidade);
 
-                Console.WriteLine("\n--- LOCALIZAÇÃO ---");
-                int escolhaColuna = validarEntradaInt("Coluna");
-                int escolhaPrateleira = validarEntradaInt("Prateleira");
-                int escolhaPosicao = validarEntradaInt("Posição");
-                Locacao locacao = new Locacao(escolhaColuna, escolhaPrateleira, escolhaPosicao);
+                    Console.WriteLine("\n--- CADASTRO DE PRODUTO ---");
+                    string entradaNomeProduto = validaString("Produto");
+                    int codigoProduto = validarEntradaInt("Código do Produto");
 
-                Console.WriteLine("\nQuantidade Inicial");
-                int escolhaQuantidade = validarEntradaInt("Quantidade");
+                    Console.WriteLine("\nTipo de unidade:");
+                    Console.WriteLine("\n [1] Unidade\n [2] Pacote\n [3] Kilograma\n [4] Litro");
+                    Console.Write("Escolha uma opção: ");
+                    int entradaTipoUnidade = validarEntradaInt("Tipo de Unidade", 1, 4);
 
-                Estoque estoque = new Estoque(produto, locacao, escolhaQuantidade);
-                ListaDoEstoque.AdicionarAoEstoque(estoque);
+                    TipoUnidade tipoUnidade = entradaTipoUnidade switch
+                    {
+                        1 => TipoUnidade.Un,
+                        2 => TipoUnidade.Pct,
+                        3 => TipoUnidade.Kg,
+                        4 => TipoUnidade.Lt,
+                    };
 
-                Console.WriteLine(estoque.ToDetalhadoString());
+                    Produto produto = new Produto(entradaNomeProduto, codigoProduto, tipoUnidade);
 
-                Console.WriteLine("Deseja Continuar? s/n");
-                char escolha = validaChar("ação");
+                    Console.WriteLine("\n--- LOCALIZAÇÃO ---");
+                    int escolhaColuna = validarEntradaInt("Coluna");
+                    int escolhaPrateleira = validarEntradaInt("Prateleira");
+                    int escolhaPosicao = validarEntradaInt("Posição");
+                    Locacao locacao = new Locacao(escolhaColuna, escolhaPrateleira, escolhaPosicao);
 
-                if (escolha == 'n')
+                    Console.WriteLine("\nQuantidade Inicial");
+                    int escolhaQuantidade = validarEntradaInt("Quantidade");
+
+                    Estoque estoque = new Estoque(produto, locacao, escolhaQuantidade);
+                    ListaDoEstoque.AdicionarAoEstoque(estoque);
+
+                    Console.WriteLine(estoque.ToDetalhadoString());
+
+                    Console.WriteLine("Deseja Continuar? s/n");
+                    char escolha = validaChar("ação");
+
+                    if (escolha == 'n')
+                    {
+                        return;
+                    }
+                } 
+                catch (EstoqueException e)
                 {
-                    return;
+                    Console.WriteLine($"Erro: {e.Message}");
                 }
-
             }
         }
 
         private static void menuMovimentacao(GestaoEstoque ListaDoEstoque)
-        {
-            Console.WriteLine("\n--- Menu de Movimentação ---");
-            Console.WriteLine("\n--- AÇÕES ---");
-            Console.WriteLine("\n [1] Adicionar Quantidade\n [2] Remover Quantidade\n [3] Listar Estoque\n [4] Sair");
+        {           
+                Console.WriteLine("\n--- Menu de Movimentação ---");
+                Console.WriteLine("\n--- AÇÕES ---");
+                Console.WriteLine("\n [1] Adicionar Quantidade\n [2] Remover Quantidade\n [3] Listar Estoque\n [4] Sair");
 
-            int escolhaAcao = validarEntradaInt("Ação Desejada", 1, 4);
-            if (escolhaAcao == 1)
-            {
-                while (true)
+                int escolhaAcao = validarEntradaInt("Ação Desejada", 1, 4);
+                if (escolhaAcao == 1)
                 {
-                    Estoque item = buscaItemPorCodigo(ListaDoEstoque);
-
-                    if (item == null)
+                    while (true)
                     {
-                        return;
-                    }
 
-                    Console.WriteLine("Digite a quantidade para remover, digite 0 caso não deseja alterar");
-                    int qtdRemover = validarEntradaInt("Quantidade para remover", 0);
+                        try
+                        {
+                        Estoque item = buscaItemPorCodigo(ListaDoEstoque);
 
-                    if (qtdRemover == 0)
+                        if (item == null)
+                        {
+                            return;
+                        }
+
+                        Console.WriteLine("Digite a quantidade para remover, digite 0 caso não deseja alterar");
+                        int qtdRemover = validarEntradaInt("Quantidade para remover", 0);
+
+                        if (qtdRemover == 0)
+                        {
+                            return;
+                        }
+
+                        item.AdicionaQuantidadeEstoque(qtdRemover);
+                        }
+                         catch (EstoqueException e)
                     {
-                        return;
-                    }
-
-                    string retornoMetodo = item.AdicionaQuantidadeEstoque(qtdRemover);
-                    while (retornoMetodo != null)
-                    {
-                        Console.WriteLine(retornoMetodo);
-                        qtdRemover = validarEntradaInt("Quantidade para remover", 0);
-                        retornoMetodo = item.AdicionaQuantidadeEstoque(qtdRemover);
+                        Console.WriteLine($"Erro: {e.Message}");
                     }
                 }
-            }
-            if (escolhaAcao == 2)
-            {
-                while (true)
+                }
+                if (escolhaAcao == 2)
                 {
-                    Estoque item = buscaItemPorCodigo(ListaDoEstoque);
-
-                    if (item == null)
+                    while (true)
                     {
-                        return;
+                    try
+                    {
+
+                        Estoque item = buscaItemPorCodigo(ListaDoEstoque);
+
+                        if (item == null)
+                        {
+                            return;
+                        }
+
+                        Console.WriteLine("Digite a quantidade para remover, digite 0 caso não deseja alterar");
+                        int qtdRemover = validarEntradaInt("Quantidade para remover", 0);
+
+                        if (qtdRemover == 0)
+                        {
+                            return;
+                        }
+
+                        item.RemoveQuantidadeEstoque(qtdRemover);
                     }
-
-                    Console.WriteLine("Digite a quantidade para remover, digite 0 caso não deseja alterar");
-                    int qtdRemover = validarEntradaInt("Quantidade para remover", 0);
-
-                    if (qtdRemover == 0)
+                    catch (EstoqueException e)
                     {
-                        return;
-                    }
-
-                    string retornoMetodo = item.RemoveQuantidadeEstoque(qtdRemover);
-                    while (retornoMetodo != null)
-                    {
-                        Console.WriteLine(retornoMetodo);
-                        qtdRemover = validarEntradaInt("Quantidade para remover", 0);
-                        retornoMetodo = item.RemoveQuantidadeEstoque(qtdRemover);
+                        Console.WriteLine($"Erro: {e.Message}");
                     }
                 }
 
-            }
-            if (escolhaAcao == 3)
-            {
-                foreach (Estoque item in ListaDoEstoque.ItensEstoque)
-                {
-                    Console.WriteLine(item);
                 }
-            }
-            if (escolhaAcao == 4)
-            {
-                return;
-            }
+                if (escolhaAcao == 3)
+                {
+                    foreach (Estoque item in ListaDoEstoque.ItensEstoque)
+                    {
+                        Console.WriteLine(item);
+                    }
+                }
+                if (escolhaAcao == 4)
+                {
+                    return;
+                }
+            
+            
         }
 
         private static void menuManutencao(GestaoEstoque ListaDoEstoque)
         {
-            Console.WriteLine("\n--- Menu de Manutenção ---");
-            Console.WriteLine("\n--- AÇÕES ---");
-            Console.WriteLine("\n [1] Alterar Nome de Produto\n [2] Remover Produto do Estoque\n [3] Sair");
+                Console.WriteLine("\n--- Menu de Manutenção ---");
+                Console.WriteLine("\n--- AÇÕES ---");
+                Console.WriteLine("\n [1] Alterar Nome de Produto\n [2] Remover Produto do Estoque\n [3] Sair");
 
-            int escolhaAcao = validarEntradaInt("Ação Desejada", 1, 3);
+                int escolhaAcao = validarEntradaInt("Ação Desejada", 1, 3);
 
-            if (escolhaAcao == 3)
-            {
-                return;
-            }
+                if (escolhaAcao == 3)
+                {
+                    return;
+                }
 
-            if (escolhaAcao == 1)
-            {
-                while (true)
+                if (escolhaAcao == 1)
+                {
+                    while (true)
+                    {
+                        Estoque item = buscaItemPorCodigo(ListaDoEstoque);
+
+                        if (item == null)
+                        {
+                            return;
+                        }
+
+                        string novoNome = validaString("Produto");
+                        item.Produto.AlterarNome(novoNome);
+                        Console.WriteLine("Processo concluido, nome atualizado.");
+                        return;
+                    }
+                }
+
+                if (escolhaAcao == 2)
                 {
                     Estoque item = buscaItemPorCodigo(ListaDoEstoque);
 
@@ -328,24 +357,8 @@ namespace InventorySystem
                         return;
                     }
 
-                    string novoNome = validaString("Produto");
-                    item.Produto.AlterarNome(novoNome);
-                    Console.WriteLine("Processo concluido, nome atualizado.");
-                    return;
+                    ListaDoEstoque.RemoverDoEstoque(item);
                 }
-            }
-
-            if (escolhaAcao == 2)
-            {
-                Estoque item = buscaItemPorCodigo(ListaDoEstoque);
-
-                if (item == null)
-                {
-                    return;
-                }
-
-                ListaDoEstoque.RemoverDoEstoque(item);
-            }
 
         }
     }
