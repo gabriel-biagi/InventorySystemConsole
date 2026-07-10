@@ -11,7 +11,7 @@ namespace InventorySystem.Models
             Console.WriteLine("\n--- AÇÕES ---");
             Console.WriteLine("\n [1] Alterar Nome de Produto\n [2] Remover Produto do Estoque\n [3] Sair");
 
-            int escolhaAcao = Program.ValidarEntradaInt("Ação Desejada", 1, 3);
+            int escolhaAcao = ConsoleInput.ValidarEntradaInt("Ação Desejada", 1, 3);
 
             if (escolhaAcao == 3)
             {
@@ -22,14 +22,14 @@ namespace InventorySystem.Models
             {
                 while (true)
                 {
-                    Estoque item = Program.BuscaItemPorCodigo(ListaDoEstoque);
+                    Estoque item = ConsoleInput.BuscaItemPorCodigo(ListaDoEstoque);
 
                     if (item == null)
                     {
                         return;
                     }
 
-                    string novoNome = Program.ValidaString("Produto");
+                    string novoNome = ConsoleInput.ValidaString("Produto");
                     item.Produto.AlterarNome(novoNome);
                     Console.WriteLine("Processo concluido, nome atualizado.");
                     return;
@@ -38,7 +38,7 @@ namespace InventorySystem.Models
 
             if (escolhaAcao == 2)
             {
-                Estoque item = Program.BuscaItemPorCodigo(ListaDoEstoque);
+                Estoque item = ConsoleInput.BuscaItemPorCodigo(ListaDoEstoque);
 
                 if (item == null)
                 {
@@ -59,13 +59,13 @@ namespace InventorySystem.Models
 
 
                     Console.WriteLine("\n--- CADASTRO DE PRODUTO ---");
-                    string entradaNomeProduto = Program.ValidaString("Produto");
-                    int codigoProduto = Program.ValidarEntradaInt("Código do Produto");
+                    string entradaNomeProduto = ConsoleInput.ValidaString("Produto");
+                    int codigoProduto = ConsoleInput.ValidarEntradaInt("Código do Produto");
 
                     Console.WriteLine("\nTipo de unidade:");
                     Console.WriteLine("\n [1] Unidade\n [2] Pacote\n [3] Kilograma\n [4] Litro");
                     Console.Write("Escolha uma opção: ");
-                    int entradaTipoUnidade = Program.ValidarEntradaInt("Tipo de Unidade", 1, 4);
+                    int entradaTipoUnidade = ConsoleInput.ValidarEntradaInt("Tipo de Unidade", 1, 4);
 
                     TipoUnidade tipoUnidade = entradaTipoUnidade switch
                     {
@@ -78,13 +78,13 @@ namespace InventorySystem.Models
                     Produto produto = new Produto(entradaNomeProduto, codigoProduto, tipoUnidade);
 
                     Console.WriteLine("\n--- LOCALIZAÇÃO ---");
-                    int escolhaColuna = Program.ValidarEntradaInt("Coluna");
-                    int escolhaPrateleira = Program.ValidarEntradaInt("Prateleira");
-                    int escolhaPosicao = Program.ValidarEntradaInt("Posição");
+                    int escolhaColuna = ConsoleInput.ValidarEntradaInt("Coluna");
+                    int escolhaPrateleira = ConsoleInput.ValidarEntradaInt("Prateleira");
+                    int escolhaPosicao = ConsoleInput.ValidarEntradaInt("Posição");
                     Locacao locacao = new Locacao(escolhaColuna, escolhaPrateleira, escolhaPosicao);
 
                     Console.WriteLine("\nQuantidade Inicial");
-                    int escolhaQuantidade = Program.ValidarEntradaInt("Quantidade");
+                    int escolhaQuantidade = ConsoleInput.ValidarEntradaInt("Quantidade");
 
                     Estoque estoque = new Estoque(produto, locacao, escolhaQuantidade);
                     ListaDoEstoque.AdicionarAoEstoque(estoque);
@@ -92,7 +92,7 @@ namespace InventorySystem.Models
                     Console.WriteLine(estoque.ToDetalhadoString());
 
                     Console.WriteLine("Deseja Continuar? s/n");
-                    char escolha = Program.ValidaChar("ação");
+                    char escolha = ConsoleInput.ValidaChar("ação");
 
                     if (escolha == 'n')
                     {
@@ -112,7 +112,7 @@ namespace InventorySystem.Models
             Console.WriteLine("\n--- AÇÕES ---");
             Console.WriteLine("\n [1] Adicionar Quantidade\n [2] Remover Quantidade\n [3] Listar Estoque\n [4] Sair");
 
-            int escolhaAcao = Program.ValidarEntradaInt("Ação Desejada", 1, 4);
+            int escolhaAcao = ConsoleInput.ValidarEntradaInt("Ação Desejada", 1, 4);
             if (escolhaAcao == 1)
             {
                 while (true)
@@ -120,7 +120,7 @@ namespace InventorySystem.Models
 
                     try
                     {
-                        Estoque item = Program.BuscaItemPorCodigo(ListaDoEstoque);
+                        Estoque item = ConsoleInput.BuscaItemPorCodigo(ListaDoEstoque);
 
                         if (item == null)
                         {
@@ -128,7 +128,7 @@ namespace InventorySystem.Models
                         }
 
                         Console.WriteLine("Digite a quantidade para remover, digite 0 caso não deseja alterar");
-                        int qtdRemover = Program.ValidarEntradaInt("Quantidade para remover", 0);
+                        int qtdRemover = ConsoleInput.ValidarEntradaInt("Quantidade para remover", 0);
 
                         if (qtdRemover == 0)
                         {
@@ -150,7 +150,7 @@ namespace InventorySystem.Models
                     try
                     {
 
-                        Estoque item = Program.BuscaItemPorCodigo(ListaDoEstoque);
+                        Estoque item = ConsoleInput.BuscaItemPorCodigo(ListaDoEstoque);
 
                         if (item == null)
                         {
@@ -158,7 +158,7 @@ namespace InventorySystem.Models
                         }
 
                         Console.WriteLine("Digite a quantidade para remover, digite 0 caso não deseja alterar");
-                        int qtdRemover = Program.ValidarEntradaInt("Quantidade para remover", 0);
+                        int qtdRemover = ConsoleInput.ValidarEntradaInt("Quantidade para remover", 0);
 
                         if (qtdRemover == 0)
                         {
