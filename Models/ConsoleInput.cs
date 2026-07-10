@@ -70,7 +70,7 @@ namespace InventorySystem.Models
 
             string entradaToLower = entradaUsuario.ToLower();
 
-            while (ConsoleInput.TentaConverterChar(entradaToLower, out entradaUsuarioChar) || ConsoleInput.VerificaEntradaChar(entradaUsuarioChar))
+            while (!TentaConverterChar(entradaToLower, out entradaUsuarioChar) || !VerificaEntradaChar(entradaUsuarioChar))
             {
                 Console.WriteLine("Escolha apenas entre 'S' ou 'N'.");
                 entradaUsuario = Console.ReadLine();
