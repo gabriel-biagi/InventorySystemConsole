@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using InventorySystem.Models;
 
-namespace InventorySystem.Models
+namespace InventorySystem.UI
 {
     public class ConsoleInput
     {

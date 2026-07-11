@@ -1,7 +1,8 @@
 ﻿using InventorySystem.Models.Exceptions;
+using InventorySystem.Models;
 using System;
 
-namespace InventorySystem.Models
+namespace InventorySystem.UI
 {
     public class Menus
     {
