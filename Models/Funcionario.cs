@@ -15,7 +15,6 @@ namespace InventorySystem.Models
 
         public override string ToString()
         {
-            return $"Nome: {Nome}\nMatrícula: {Matricula}";
         }
 
         
