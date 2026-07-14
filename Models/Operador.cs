@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
+using InventorySystem.Interfaces;
 
 namespace InventorySystem.Models
 {
-    public class Operador : Funcionario
+    public class Operador : Funcionario, IFuncionario
     {
         public Operador(string nome, int matricula) : base(nome, matricula)
         {

@@ -41,8 +41,9 @@ namespace InventorySystem
                 {
                     if (funcionario is Gestor)
                     {
-                    Menus.MenuCadastro(ListaDoEstoque);
-                    } else
+                        Menus.MenuCadastro(ListaDoEstoque);
+                    }
+                    else
                     {
                         Console.Clear();
                         Console.WriteLine("Você não tem permissão.");
@@ -57,21 +58,22 @@ namespace InventorySystem
 
                 if (escolhaUsuario == 3)
                 {
-                    if(funcionario is Gestor)
+                    if (funcionario is Gestor)
                     {
-                    Menus.MenuManutencao(ListaDoEstoque);
-                    } else
+                        Menus.MenuManutencao(ListaDoEstoque);
+                    }
+                    else
                     {
                         Console.Clear();
                         Console.WriteLine("Você não tem permissão.");
                     }
-                } 
+                }
 
                 if (escolhaUsuario == 4)
                 {
                     return;
                 }
-                
+
             }
         }
     }

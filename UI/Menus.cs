@@ -62,6 +62,26 @@ namespace InventorySystem.UI
                     Console.WriteLine("\n--- CADASTRO DE PRODUTO ---");
                     string entradaNomeProduto = ConsoleInput.ValidaString("Produto");
                     int codigoProduto = ConsoleInput.ValidarEntradaInt("Código do Produto");
+                    Estoque retorno = ListaDoEstoque.RetornaItemDoEstoque(codigoProduto);
+
+                    bool cancelado = false;
+                    while (retorno != null)
+                    {
+                        Console.WriteLine("Código já cadastrado, insira outro código.");
+                        Console.WriteLine("Para cancelar, digite 0");
+                        codigoProduto = ConsoleInput.ValidarEntradaInt("Código do Produto", 0);
+                        if (codigoProduto == 0)
+                        {
+                            cancelado = true;
+                            break;
+                        }
+                        retorno = ListaDoEstoque.RetornaItemDoEstoque(codigoProduto);
+                    }
+
+                    if (cancelado)
+                    {
+                        continue;
+                    }
 
                     Console.WriteLine("\nTipo de unidade:");
                     Console.WriteLine("\n [1] Unidade\n [2] Pacote\n [3] Kilograma\n [4] Litro");
@@ -191,9 +211,6 @@ namespace InventorySystem.UI
         }
 
 
-
-        //Métodos Privados
-        
     }
-    }
+}
 
