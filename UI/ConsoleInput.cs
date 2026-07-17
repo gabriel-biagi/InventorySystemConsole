@@ -13,7 +13,7 @@ namespace InventorySystem.UI
         {
             Console.WriteLine($"Digite uma opção para {local}");
 
-            string entrada = Console.ReadLine();
+            string entrada = Console.ReadLine() ?? "0";
 
             while (true)
             {
@@ -27,7 +27,7 @@ namespace InventorySystem.UI
                 {
                     Console.WriteLine("Erro, Digite uma opção válida.");
 
-                    entrada = Console.ReadLine();
+                    entrada = Console.ReadLine() ?? "0";
                 }
             }
         }
@@ -41,7 +41,7 @@ namespace InventorySystem.UI
                 Console.WriteLine("Operação cancelada, voltando ao Menu Inicial");
                 return null;
             }
-            Estoque item = gestaoEstoque.RetornaItemDoEstoque(codigoProduto);
+            Estoque? item = gestaoEstoque.RetornaItemDoEstoque(codigoProduto);
 
             while (item == null)
             {
@@ -60,13 +60,13 @@ namespace InventorySystem.UI
         public static char ValidaChar(string local)
         {
             Console.WriteLine($"Digite uma opção para {local}");
-            string entradaUsuario = Console.ReadLine();
+            string entradaUsuario = Console.ReadLine() ?? "0";
             char entradaUsuarioChar;
 
             while (string.IsNullOrWhiteSpace(entradaUsuario))
             {
                 Console.WriteLine("Não pode estar em branco.");
-                entradaUsuario = Console.ReadLine();
+                entradaUsuario = Console.ReadLine() ?? "";
             }
 
             string entradaToLower = entradaUsuario.ToLower();
@@ -74,7 +74,7 @@ namespace InventorySystem.UI
             while (!TentaConverterChar(entradaToLower, out entradaUsuarioChar) || !VerificaEntradaChar(entradaUsuarioChar))
             {
                 Console.WriteLine("Escolha apenas entre 'S' ou 'N'.");
-                entradaUsuario = Console.ReadLine();
+                entradaUsuario = Console.ReadLine() ?? "0";
                 entradaToLower = entradaUsuario.ToLower();
             }
 
@@ -101,11 +101,11 @@ namespace InventorySystem.UI
         public static string ValidaString(string local)
         {
             Console.WriteLine($"Digite um nome para o {local}");
-            string entrada = Console.ReadLine();
+            string entrada = Console.ReadLine() ?? "";
             while (string.IsNullOrWhiteSpace(entrada))
             {
                 Console.WriteLine("Não pode ficar em branco.");
-                entrada = Console.ReadLine();
+                entrada = Console.ReadLine() ?? "";
             }
             return entrada;
         }

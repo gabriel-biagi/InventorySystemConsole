@@ -23,7 +23,7 @@ namespace InventorySystem.UI
             {
                 while (true)
                 {
-                    Estoque item = ConsoleInput.BuscaItemPorCodigo(ListaDoEstoque);
+                    Estoque? item = ConsoleInput.BuscaItemPorCodigo(ListaDoEstoque);
 
                     if (item == null)
                     {
@@ -39,7 +39,7 @@ namespace InventorySystem.UI
 
             if (escolhaAcao == 2)
             {
-                Estoque item = ConsoleInput.BuscaItemPorCodigo(ListaDoEstoque);
+                Estoque? item = ConsoleInput.BuscaItemPorCodigo(ListaDoEstoque);
 
                 if (item == null)
                 {
@@ -62,7 +62,7 @@ namespace InventorySystem.UI
                     Console.WriteLine("\n--- CADASTRO DE PRODUTO ---");
                     string entradaNomeProduto = ConsoleInput.ValidaString("Produto");
                     int codigoProduto = ConsoleInput.ValidarEntradaInt("Código do Produto");
-                    Estoque retorno = ListaDoEstoque.RetornaItemDoEstoque(codigoProduto);
+                    Estoque? retorno = ListaDoEstoque.RetornaItemDoEstoque(codigoProduto);
 
                     bool cancelado = false;
                     while (retorno != null)
@@ -94,6 +94,7 @@ namespace InventorySystem.UI
                         2 => TipoUnidade.Pct,
                         3 => TipoUnidade.Kg,
                         4 => TipoUnidade.Lt,
+                        _ => throw new EstoqueException("Tipo de unidade inválido.")
                     };
 
                     Produto produto = new Produto(entradaNomeProduto, codigoProduto, tipoUnidade);
@@ -141,7 +142,7 @@ namespace InventorySystem.UI
 
                     try
                     {
-                        Estoque item = ConsoleInput.BuscaItemPorCodigo(ListaDoEstoque);
+                        Estoque? item = ConsoleInput.BuscaItemPorCodigo(ListaDoEstoque);
 
                         if (item == null)
                         {
@@ -171,7 +172,7 @@ namespace InventorySystem.UI
                     try
                     {
 
-                        Estoque item = ConsoleInput.BuscaItemPorCodigo(ListaDoEstoque);
+                        Estoque? item = ConsoleInput.BuscaItemPorCodigo(ListaDoEstoque);
 
                         if (item == null)
                         {

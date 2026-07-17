@@ -19,7 +19,7 @@ namespace InventorySystem
             while (true)
             {
                 Console.WriteLine("Digite sua matricula");
-                int matricula = int.Parse(Console.ReadLine());
+                int matricula = int.Parse(Console.ReadLine() ?? "0");
 
                 funcionario = ListaDeFuncionarios.RetornaFuncionario(matricula);
                 if (funcionario != null)
