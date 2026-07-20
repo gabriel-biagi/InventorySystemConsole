@@ -72,6 +72,7 @@ InventorySystemConsole/
 - **Exceções de domínio:** `EstoqueException` substitui retorno de strings de erro
 - **Interface:** `IFuncionario` define contrato de operações por cargo
 - **Separação de camadas:** `Models`, `UI`, `Interfaces` e `Exceptions` isolados
+- **Persistência de Dados:** persistencia de dados usando arquivo JSON
 
 ---
 
@@ -91,7 +92,6 @@ Credenciais de teste:
 
 ## Próximos Passos
 
-- Persistência de dados via JSON
 - Tratamento de erros com exceções tipadas por operação
 - Histórico de movimentações com `DateTime`
 - Testes unitários com xUnit
