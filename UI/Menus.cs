@@ -1,5 +1,6 @@
-﻿using InventorySystem.Models.Exceptions;
-using InventorySystem.Models;
+﻿using InventorySystem.Models;
+using InventorySystem.Models.Exceptions;
+using InventorySystem.Persistence;
 using System;
 
 namespace InventorySystem.UI
@@ -33,6 +34,7 @@ namespace InventorySystem.UI
                     string novoNome = ConsoleInput.ValidaString("Produto");
                     item.Produto.AlterarNome(novoNome);
                     Console.WriteLine("Processo concluido, nome atualizado.");
+                    JsonEstoqueRepository.JsonSerializer(ListaDoEstoque);
                     return;
                 }
             }
@@ -47,6 +49,7 @@ namespace InventorySystem.UI
                 }
 
                 ListaDoEstoque.RemoverDoEstoque(item);
+                JsonEstoqueRepository.JsonSerializer(ListaDoEstoque);
             }
         }
 
@@ -113,6 +116,8 @@ namespace InventorySystem.UI
 
                     Console.WriteLine(estoque.ToDetalhadoString());
 
+                    JsonEstoqueRepository.JsonSerializer(ListaDoEstoque);
+
                     Console.WriteLine("Deseja Continuar? s/n");
                     char escolha = ConsoleInput.ValidaChar("ação");
 
@@ -158,6 +163,7 @@ namespace InventorySystem.UI
                         }
 
                         item.AdicionaQuantidadeEstoque(qtdRemover);
+                        JsonEstoqueRepository.JsonSerializer(ListaDoEstoque);
                     }
                     catch (EstoqueException e)
                     {
@@ -188,6 +194,7 @@ namespace InventorySystem.UI
                         }
 
                         item.RemoveQuantidadeEstoque(qtdRemover);
+                        JsonEstoqueRepository.JsonSerializer(ListaDoEstoque);
                     }
                     catch (EstoqueException e)
                     {
