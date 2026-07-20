@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using InventorySystem.Persistence;
 
 namespace InventorySystem.Models
 {
@@ -9,6 +10,11 @@ namespace InventorySystem.Models
         public GestaoEstoque()
         {
             ItensEstoque = new List<Estoque>();
+        }
+
+        public GestaoEstoque(List<Estoque> itens)
+        {
+            ItensEstoque = itens;
         }
 
         public void AdicionarAoEstoque(Estoque estoque)

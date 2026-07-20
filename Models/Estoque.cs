@@ -1,6 +1,7 @@
-﻿using System;
+﻿using InventorySystem.Models.Exceptions;
+using System;
 using System.Globalization;
-using InventorySystem.Models.Exceptions;
+using System.Text.Json.Serialization;
 
 namespace InventorySystem.Models
 {
@@ -10,7 +11,6 @@ namespace InventorySystem.Models
         public Locacao Locacao { get; private set; }
         public decimal Quantidade { get; private set; }
 
-
         public Estoque(Produto produto, Locacao locacao)
         {
             Produto = produto;
@@ -18,6 +18,7 @@ namespace InventorySystem.Models
             Quantidade = 0;
         }
 
+        [JsonConstructor]
         public Estoque(Produto produto, Locacao locacao, decimal quantidade)
         {
             Produto = produto;

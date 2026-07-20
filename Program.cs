@@ -1,7 +1,8 @@
 ﻿using System;
 using InventorySystem.Models;
-using InventorySystem.Models.Exceptions;
 using InventorySystem.UI;
+using System.IO;
+using InventorySystem.Persistence;
 
 
 namespace InventorySystem
@@ -10,7 +11,12 @@ namespace InventorySystem
     {
         static void Main(string[] args)
         {
-            GestaoEstoque ListaDoEstoque = new GestaoEstoque();
+            GestaoEstoque ListaDoEstoque = new();
+            List<Estoque>? estoque = JsonEstoqueRepository.JsonDeserialize();
+            if (estoque != null)
+            {
+                ListaDoEstoque = new(estoque);
+            }
 
             GestaoFuncionarios ListaDeFuncionarios = new GestaoFuncionarios();
             ListaDeFuncionarios.AdicionarFuncionario(new Operador("Gabriel", 1000));
@@ -69,8 +75,10 @@ namespace InventorySystem
                     }
                 }
 
+
                 if (escolhaUsuario == 4)
                 {
+                    JsonEstoqueRepository.JsonSerializer(ListaDoEstoque);
                     return;
                 }
 
