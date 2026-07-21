@@ -20,7 +20,7 @@ namespace InventorySystem.Models
 
         public Funcionario? RetornaFuncionario(int matricula)
         {
-            return ListaDeFuncionarios.Find(funcionario => funcionario.Matricula == matricula);
+            return ListaDeFuncionarios.FirstOrDefault(funcionario => funcionario.Matricula == matricula);
         }
 
     }

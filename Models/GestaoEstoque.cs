@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using InventorySystem.Persistence;
+using System.Linq;
 
 namespace InventorySystem.Models
 {
@@ -35,7 +36,7 @@ namespace InventorySystem.Models
 
         public Estoque? RetornaItemDoEstoque(int codigoProduto)
         {
-            return ItensEstoque.Find(produto => produto.Produto.Codigo == codigoProduto);
+            return ItensEstoque.FirstOrDefault(x => x.Produto.Codigo == codigoProduto);
         }
     }
 }
