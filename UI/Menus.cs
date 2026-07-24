@@ -164,6 +164,8 @@ namespace InventorySystem.UI
 
                         item.AdicionaQuantidadeEstoque(qtdRemover);
                         JsonEstoqueRepository.JsonSerializer(ListaDoEstoque);
+                        Console.WriteLine("Operação realizada com sucesso");
+                        return;
                     }
                     catch (EstoqueException e)
                     {
@@ -195,6 +197,8 @@ namespace InventorySystem.UI
 
                         item.RemoveQuantidadeEstoque(qtdRemover);
                         JsonEstoqueRepository.JsonSerializer(ListaDoEstoque);
+                        Console.WriteLine("Operação realizada com sucesso");
+                        return;
                     }
                     catch (EstoqueException e)
                     {
