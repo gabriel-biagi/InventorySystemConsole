@@ -90,8 +90,6 @@ Credenciais de teste:
 
 ---
 
-## Próximos Passos
-
 - Tratamento de erros com exceções tipadas por operação
 - Histórico de movimentações com `DateTime`
 - Testes unitários com xUnit
